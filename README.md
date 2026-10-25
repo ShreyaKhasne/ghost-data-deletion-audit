@@ -28,6 +28,10 @@ python -m unittest discover -s tests -v
 
 `--inspect` reports file formats, column names, top-level JSON keys, table names, and record counts without displaying data values or executing SQL exports. The normal run command checks for the challenge's required files and reports each missing dependency. It exits non-zero until the real dataset has been supplied and schema-specific audit logic has been implemented.
 
+## Public project page
+
+The static project page is in `public/` and is configured for Vercel with `vercel.json`. It describes the scaffold and explicitly states that no dataset audit has been run. It accepts no uploads and collects no personal data. To deploy, import this GitHub repository into Vercel, choose the **Other** framework preset, leave the build and install commands empty, and set the output directory to `public`.
+
 ## Expected dataset
 
 At minimum, implementation and evaluation require the actual challenge files, including:
