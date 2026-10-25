@@ -8,7 +8,7 @@ The project cannot yet create or compare `output.csv`. The expected dataset and 
 
 ## Team-created test cases
 
-No synthetic audit cases are claimed as executed. The current tests cover only the dataset-missing guard and output CSV serialization/validation. Audit-specific synthetic tests will be added once the actual operation vocabulary and policy schemas are verified from the challenge materials.
+No synthetic audit cases are claimed as executed. The current tests cover the dataset-missing guard, output CSV serialization, operation/state validation, incomplete/complete/not-applicable step constraints, and safe inventory summaries for CSV and SQLite inputs. They do not claim that deletion-audit decisions have been tested.
 
 ## Failures and improvements
 

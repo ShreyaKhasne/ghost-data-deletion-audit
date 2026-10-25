@@ -6,7 +6,7 @@ Deterministic project scaffold for the "Ghost Data Still Exists" deletion-audit 
 
 The challenge dataset is not present in this project. The pipeline deliberately stops before producing an `output.csv` when the required input files are absent. It does not generate guessed case results, evidence citations, evaluation scores, or token usage.
 
-The expected dataset file names and deliverables are recorded below so the real dataset can be added and the implementation completed against its actual schemas.
+The expected dataset file names and deliverables are recorded below. A read-only structural inventory is implemented; case decisions remain intentionally blocked until the real schemas and policy semantics can be inspected.
 
 ## Setup
 
@@ -22,10 +22,11 @@ The current scaffold uses only the Python standard library.
 
 ```powershell
 python run.py --dataset dataset --output output.csv
+python run.py --dataset dataset --inspect
 python -m unittest discover -s tests -v
 ```
 
-The run command checks for the challenge's required files and reports each missing dependency. It exits non-zero until the real dataset has been supplied.
+`--inspect` reports file formats, column names, top-level JSON keys, table names, and record counts without displaying data values or executing SQL exports. The normal run command checks for the challenge's required files and reports each missing dependency. It exits non-zero until the real dataset has been supplied and schema-specific audit logic has been implemented.
 
 ## Expected dataset
 
@@ -46,7 +47,11 @@ The precise column names, data types, file encodings, timestamp formats, evidenc
 
 ## Planned architecture
 
-The package is divided into ingestion, identity resolution, temporal reconstruction, policy evaluation, audit decisions, remediation planning, output serialization, validation, and usage reporting. The present implementation provides the command-line entry point, required-input gate, and tests; the data-dependent modules intentionally raise a clear `NotImplementedError` until actual schemas and policy semantics can be examined.
+The package is divided into ingestion, identity resolution, temporal reconstruction, policy evaluation, audit decisions, remediation planning, output serialization, validation, and usage reporting. The present implementation includes structural inspection for CSV/TSV, JSON/JSONL, text/log, SQL text, SQLite, PDF, and image file types. SQL exports are not executed, SQLite is opened read-only, and PDF/image content is not extracted without inspecting the real supplied formats first.
+
+The audit-domain modules intentionally raise a clear `NotImplementedError` until actual schemas and policy semantics can be examined. Serialization sorts cases and steps by the specified order and renumbers steps; the output validator enforces the stated step fields, allowed operation/state pairs, phase ordering, operation ordering, case status constraints, and evidence-ID rules.
+
+The user-provided `file_ansa.py` is retained under `provided/` for reference only. It is a separate tree-search submission and is not part of the deletion-audit pipeline.
 
 ## Privacy and safety
 

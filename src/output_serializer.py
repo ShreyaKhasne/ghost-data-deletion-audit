@@ -3,7 +3,21 @@
 import csv
 import json
 
-from src.config import OUTPUT_COLUMNS
+from src.config import OPERATION_ORDER, OUTPUT_COLUMNS, PHASE_ORDER
+
+
+def order_steps(steps):
+    """Sort steps by the required phase/operation/system/resource ordering."""
+    ordered = sorted(
+        steps,
+        key=lambda step: (
+            PHASE_ORDER[step["phase"]],
+            OPERATION_ORDER[step["operation"]],
+            step["system_id"],
+            step["resource_id"],
+        ),
+    )
+    return [dict(step, step_no=index) for index, step in enumerate(ordered, start=1)]
 
 
 def write_output(rows, output_path):
@@ -16,13 +30,15 @@ def write_output(rows, output_path):
             lineterminator="\n",
         )
         writer.writeheader()
-        for row in rows:
+        for row in sorted(rows, key=lambda item: item["case_id"]):
             writer.writerow(
                 {
                     "case_id": row["case_id"],
                     "deletion_status": row["deletion_status"],
                     "steps_json": json.dumps(
-                        row["steps"], ensure_ascii=False, separators=(",", ":")
+                        order_steps(row["steps"]),
+                        ensure_ascii=False,
+                        separators=(",", ":"),
                     ),
                 }
             )
