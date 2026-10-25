@@ -1,0 +1,5 @@
+{
+  "status": "not-created",
+  "reason": "Challenge schemas, policies, and allowed operation/state vocabulary must be confirmed from the real dataset before defining meaningful audit cases.",
+  "executed": false
+}

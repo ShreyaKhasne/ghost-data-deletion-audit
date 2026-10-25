@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+dataset/
+output.csv
+code.zip
+*.db
+*.sqlite
+*.sqlite3
+evaluation/generated/

@@ -1,0 +1,1 @@
+# Standard-library-only scaffold. Add dependencies only after inspecting actual evidence formats.
